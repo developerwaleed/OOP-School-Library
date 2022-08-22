@@ -1,0 +1,15 @@
+require "./person.rb"
+
+class Teacher < Person
+
+    def initialize(age, specialization, name = "Unknown", parent_permission = true)
+        super(age, name, parent_permission)
+        @specialization = specialization
+    end
+
+    def can_use_services?
+        return true
+    end
+end
+
+Student1 = Teacher.new(15, "CS", "waleed", "false")

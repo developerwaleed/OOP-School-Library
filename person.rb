@@ -3,7 +3,7 @@ require_relative 'capitalize_decorator'
 require_relative 'trimmer_decorator'
 
 class Person < Nameable
-  attr_accessor :name, :age
+  attr_accessor :name, :age, :rentals
   attr_reader :id
 
   def initialize(age, name = 'Unknown', _parent_permission: true)
@@ -11,6 +11,7 @@ class Person < Nameable
     @id = Random.rand(1..1000)
     @name = name
     @age = age
+    @rentals = []
   end
 
   private
@@ -27,5 +28,10 @@ class Person < Nameable
 
   def correct_name
     @name
+  end
+
+  def add_rentals(rental)
+    @rentals.push(rental)
+    rental.rentals = self
   end
 end

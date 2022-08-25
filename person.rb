@@ -1,4 +1,5 @@
 require_relative 'nameable'
+require_relative 'rental'
 require_relative 'capitalize_decorator'
 require_relative 'trimmer_decorator'
 
@@ -11,6 +12,7 @@ class Person < Nameable
     @id = Random.rand(1..1000)
     @name = name
     @age = age
+    @parent_permission = parent_permission
     @rentals = []
   end
 
@@ -30,8 +32,7 @@ class Person < Nameable
     @name
   end
 
-  def add_rentals(rental)
-    @rentals.push(rental)
-    rental.rentals = self
+  def add_rentals(date, book)
+    Rental.new(date, book, self)
   end
 end

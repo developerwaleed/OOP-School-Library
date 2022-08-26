@@ -1,4 +1,7 @@
 require_relative 'book.rb'
+require_relative 'student'
+require_relative 'teacher'
+require_relative 'rental'
 
 class App
     
@@ -22,13 +25,13 @@ class App
     def check(options)
         case options
         when 1
-            puts "\nYour List of Books is:"
+            list_books
         when 2
             puts "\nYour List of Poeple is:"
         when 3
             puts "\nLets create a person"
         when 4
-            puts "\nLets create a Book"
+            create_book
         when 5
             puts "\nLets create a Rental"
         when 6
@@ -63,6 +66,11 @@ class App
         @books.push(Book.new(title, author))
     end
     
-    
+    def list_books
+        puts
+        @books.each_with_index do |book, index|
+          puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
+        end
+      end
 
 end

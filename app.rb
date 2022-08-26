@@ -35,7 +35,7 @@ class App
         when 5
             create_rental
         when 6
-            puts "\nYour List of Rental is:"
+            list_rentals
         when 7
             puts "\nGOOD BYE!"
         else
@@ -150,6 +150,23 @@ class App
         puts
         @people.each_with_index do |person, index|
           puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id} Age: #{person.age}"
+        end
+      end
+
+    def list_rentals
+        puts
+        print 'ID of person: '
+        person_id = gets.chomp.to_i
+        person = get_person(person_id)
+        puts 'Rentals:'
+        person.rentals.each do |rental|
+          puts "Date: #{rental.date} Book: #{rental.book.title} by #{rental.book.author}"
+        end
+      end
+    
+    def get_person(id)
+        @people.each do |person|
+          return person if person.id == id
         end
       end
 end

@@ -40,6 +40,21 @@ class App
         end
     end
 
+    def execute
+        choice = 0
+        while choice != 7
+          menu
+          puts
+          puts
+          print '[Enter 1-7]: '
+          choice = gets.chomp.strip.to_i
+          check(choice)
+          puts
+          puts
+        end
+    end
+
+    
     
 
 end

@@ -138,7 +138,7 @@ class App
     person = @people[person_choice]
     print 'Enter date of booking: (yyyy/mm/dd) : '
     date = gets.chomp.strip
-    person.add_rental(date, book)
+    person.add_rentals(date, book)
   end
 
   def list_people

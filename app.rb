@@ -53,7 +53,15 @@ class App
           puts
         end
     end
-
+    
+    def create_book
+        puts
+        print 'Title: '
+        title = gets.chomp.strip.capitalize
+        print 'Author: '
+        author = gets.chomp.strip.capitalize
+        @books.push(Book.new(title, author))
+    end
     
     
 

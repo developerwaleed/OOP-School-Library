@@ -2,13 +2,18 @@ require_relative 'book'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'rental'
+require_relative './persist_files/persist_books'
+require_relative './persist_files/persist_people'
 
 class App
   def initialize
-    @books = []
-    @people = []
+    @books = load_books
+    @people = load_people
     @rentals = []
   end
+
+  include BooksPersistence
+  include PeoplePersistence
 
   def menu
     puts 'Welcome to OOP SCHOOL LIBRARY SYSTEM!'
@@ -50,6 +55,8 @@ class App
       puts
       puts
     end
+    store_books(@books)
+    store_people(@people)
   end
 
   def create_book

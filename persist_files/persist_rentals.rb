@@ -14,6 +14,7 @@ module RentalsPersistence
   def load_rentals
     data = []
     file = './JSON_files/rentals.json'
+    return data unless File.exist?(file) && File.read(file) != ''
 
     JSON.parse(File.read(file)).each do |rental|
       data << Rental.new(rental['date'], rental['book'], rental['person'])

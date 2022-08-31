@@ -5,7 +5,7 @@ require_relative 'rental'
 require_relative './persist_files/persist_books'
 require_relative './persist_files/persist_people'
 require_relative './persist_files/persist_rentals'
-
+# rubocop:disable Metrics/ClassLength
 class App
   def initialize
     @books = load_books
@@ -187,3 +187,4 @@ class App
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

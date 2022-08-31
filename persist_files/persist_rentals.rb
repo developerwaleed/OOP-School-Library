@@ -10,5 +10,15 @@ module RentalsPersistence
     end
     File.write(file, JSON.generate(data))
   end
+  def load_rentals
+    data = []
+    file = './JSON_files/rentals.json'
+
+    JSON.parse(File.read(file)).each do |rental|
+      data << Rental.new(rental['date'], rental['book'], rental['person'])
+    end
+
+    data
+  end
 
 end

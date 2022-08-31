@@ -7,7 +7,7 @@ class Rental
     @book = book
     @person = person
 
-    @person.rentals.push(self)
-    @book.rentals.push(self)
+    # @person.rentals.push(self)
+    # @book.rentals.push(self)
   end
 end

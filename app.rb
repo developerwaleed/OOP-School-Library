@@ -21,7 +21,7 @@ class App
   def menu
     puts
     puts '               Welcome to OOP SCHOOL LIBRARY SYSTEM!'
-    puts "------------------------------------------------------------------------------"
+    puts '------------------------------------------------------------------------------'
     puts '  |             | 1 |     List all books                                |'
     puts
     puts '  |             | 2 |     List all people                               |'
@@ -35,7 +35,7 @@ class App
     puts '  |             | 6 |     Create a rental                               |'
     puts
     puts '  |             | 7 |     Exit                                          |'
-    puts "------------------------------------------------------------------------------"
+    puts '------------------------------------------------------------------------------'
   end
 
   def check(options)
@@ -64,9 +64,7 @@ class App
       print 'Please Choose Your Option [1-7]: '
       choice = gets.chomp.strip.to_i
       check(choice)
-      if choice != 7
-      wait_continue
-      end
+      wait_continue if choice != 7
       puts
       puts
     end
@@ -89,10 +87,10 @@ class App
     if @books.empty?
       puts 'The books list is empty'
     else
-    @books.each_with_index do |book, index|
-      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
+      @books.each_with_index do |book, index|
+        puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
+      end
     end
-  end
   end
 
   def create_person
@@ -175,11 +173,11 @@ class App
     if @people.empty?
       puts "The people\'s list is empty"
     else
-    puts
-    @people.each_with_index do |person, index|
-      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id} Age: #{person.age}"
+      puts
+      @people.each_with_index do |person, index|
+        puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id} Age: #{person.age}"
+      end
     end
-  end
   end
 
   def list_rentals
@@ -209,10 +207,10 @@ class App
     end
   end
 
-  def wait_continue                                                                                                          
-    print "press any key to continue..."                                                                                                    
-    STDIN.getch                                                                                                              
-    print "             \r"                                                                                                          
-  end 
+  def wait_continue
+    print 'press any key to continue...'
+    STDIN.getch
+    print "             \r"
+  end
 end
 # rubocop:enable Metrics/ClassLength

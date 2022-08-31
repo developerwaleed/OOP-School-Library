@@ -4,6 +4,7 @@ module RentalsPersistence
   def store_rentals(rentals)
     data = []
     file = './JSON_files/rentals.json'
+    return unless File.exist?(file)
 
     rentals.each do |rental|
       data << { date: rental.date, book: rental.book, person: rental.person }

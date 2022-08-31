@@ -1,3 +1,4 @@
+require 'io/console'
 require_relative 'book'
 require_relative 'student'
 require_relative 'teacher'
@@ -18,14 +19,23 @@ class App
   include RentalsPersistence
 
   def menu
-    puts 'Welcome to OOP SCHOOL LIBRARY SYSTEM!'
-    puts '1 - List all books'
-    puts '2 - List all people'
-    puts '3 - Create a person'
-    puts '4 - Create a book'
-    puts '5 - Create a rental'
-    puts '6 - List all rentals for a given person id'
-    puts '7 - Exit'
+    puts
+    puts '               Welcome to OOP SCHOOL LIBRARY SYSTEM!'
+    puts '------------------------------------------------------------------------------'
+    puts '  |             | 1 |     List all books                                |'
+    puts
+    puts '  |             | 2 |     List all people                               |'
+    puts
+    puts '  |             | 3 |     List all rentals for a given person id        |'
+    puts
+    puts '  |             | 4 |     Create a person                               |'
+    puts
+    puts '  |             | 5 |     Create a book                                 |'
+    puts
+    puts '  |             | 6 |     Create a rental                               |'
+    puts
+    puts '  |             | 7 |     Exit                                          |'
+    puts '------------------------------------------------------------------------------'
   end
 
   def check(options)
@@ -35,13 +45,13 @@ class App
     when 2
       list_people
     when 3
-      create_person
-    when 4
-      create_book
-    when 5
-      create_rental
-    when 6
       list_rentals
+    when 4
+      create_person
+    when 5
+      create_book
+    when 6
+      create_rental
     end
   end
 
@@ -51,9 +61,10 @@ class App
       menu
       puts
       puts
-      print '[Enter 1-7]: '
+      print 'Please Choose Your Option [1-7]: '
       choice = gets.chomp.strip.to_i
       check(choice)
+      wait_continue if choice != 7
       puts
       puts
     end
@@ -72,9 +83,13 @@ class App
   end
 
   def list_books
-    puts
-    @books.each_with_index do |book, index|
-      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
+    puts '-' * 50
+    if @books.empty?
+      puts 'The books list is empty'
+    else
+      @books.each_with_index do |book, index|
+        puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
+      end
     end
   end
 
@@ -154,9 +169,14 @@ class App
   end
 
   def list_people
-    puts
-    @people.each_with_index do |person, index|
-      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id} Age: #{person.age}"
+    puts '-' * 50
+    if @people.empty?
+      puts "The people\'s list is empty"
+    else
+      puts
+      @people.each_with_index do |person, index|
+        puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id} Age: #{person.age}"
+      end
     end
   end
 
@@ -185,6 +205,12 @@ class App
     @people.each do |person|
       return person if person.id == id
     end
+  end
+
+  def wait_continue
+    print 'press any key to continue...'
+    STDIN.getch
+    print "             \r"
   end
 end
 # rubocop:enable Metrics/ClassLength

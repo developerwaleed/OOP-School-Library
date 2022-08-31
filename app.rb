@@ -2,13 +2,20 @@ require_relative 'book'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'rental'
-
+require_relative './persist_files/persist_books'
+require_relative './persist_files/persist_people'
+require_relative './persist_files/persist_rentals'
+# rubocop:disable Metrics/ClassLength
 class App
   def initialize
-    @books = []
-    @people = []
-    @rentals = []
+    @books = load_books
+    @people = load_people
+    @rentals = load_rentals
   end
+
+  include BooksPersistence
+  include PeoplePersistence
+  include RentalsPersistence
 
   def menu
     puts 'Welcome to OOP SCHOOL LIBRARY SYSTEM!'
@@ -50,6 +57,9 @@ class App
       puts
       puts
     end
+    store_books(@books)
+    store_people(@people)
+    store_rentals(@rentals)
   end
 
   def create_book
@@ -98,7 +108,7 @@ class App
     when 'N'
       permission = false
     end
-    @people << Student.new(age, nil, name, parent_permission: permission)
+    @people << Student.new(Random.rand(1..1000), age, nil, name, parent_permission: permission)
     puts 'Person created successfully'
   end
 
@@ -114,7 +124,7 @@ class App
     name = gets.chomp.strip.capitalize
     print 'Specialization: '
     specialization = gets.chomp.strip
-    @people << Teacher.new(age, specialization, name)
+    @people << Teacher.new(Random.rand(1..1000), age, specialization, name)
     puts 'Person created successfully'
   end
 
@@ -127,7 +137,8 @@ class App
       print "Please enter a number within 0 - #{@books.length - 1} range: "
       book_choice = gets.chomp.to_i
     end
-    book = @books[book_choice]
+    # book = @books[book_choice]
+    book = "#{@books[book_choice].title} By #{@books[book_choice].author}"
     puts 'Select a person from the following list by number (not id)'
     list_people
     person_choice = gets.chomp.to_i
@@ -135,10 +146,11 @@ class App
       print "Please enter a number within 0 - #{@people.length - 1} range: "
       person_choice = gets.chomp.to_i
     end
-    person = @people[person_choice]
+    person = @people[person_choice].id
     print 'Enter date of booking: (yyyy/mm/dd) : '
     date = gets.chomp.strip
-    person.add_rentals(date, book)
+    # person.add_rentals(date, book)
+    @rentals << Rental.new(date, book, person)
   end
 
   def list_people
@@ -150,12 +162,22 @@ class App
 
   def list_rentals
     puts
+    list_people
     print 'ID of person: '
     person_id = gets.chomp.to_i
-    person = get_person(person_id)
+    # person = get_person(person_id)
+
+    selected_person = @rentals.select { |rental| rental.person == person_id }
     puts 'Rentals:'
-    person.rentals.each do |rental|
-      puts "Date: #{rental.date} Book: #{rental.book.title} by #{rental.book.author}"
+
+    # person.rentals.each do |rental|
+    #   puts "Date: #{rental.date} Book: #{rental.book.title} by #{rental.book.author}"
+    if selected_person.empty?
+      puts "No rentals are found for (#{person_id})"
+    else
+      selected_person.each do |rental|
+        puts "Date: #{rental.date} | Book: #{rental.book}"
+      end
     end
   end
 
@@ -165,3 +187,4 @@ class App
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

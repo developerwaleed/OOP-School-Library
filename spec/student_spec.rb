@@ -24,7 +24,7 @@ describe Student do
 
   describe '#name' do
     it 'check for the name!' do
-      puts "student"
+      puts 'student'
       expect(@student.name).to eql 'name'
     end
   end

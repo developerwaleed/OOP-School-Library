@@ -6,15 +6,14 @@ describe Teacher do
   end
 
   describe '#new' do
-      it 'takes 4 parameters and returns a Student object' do
+    it 'takes 4 parameters and returns a Student object' do
       expect(@teacher).to be_instance_of Teacher
-      end
     end
+  end
 
-
-    describe '#can_use_services?' do
-        it 'Returns True!' do
-        expect(@teacher.can_use_services?).to eq true
-        end
+  describe '#can_use_services?' do
+    it 'Returns True!' do
+      expect(@teacher.can_use_services?).to eq true
     end
+  end
 end

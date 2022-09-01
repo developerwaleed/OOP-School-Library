@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Book do
   before :each do
-    @book = Book.new 'Title', 'Author'
+    @book = Book.new('Title', 'Author')
   end
 
   describe '#new' do

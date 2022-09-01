@@ -25,7 +25,7 @@ class Person < Nameable
   public
 
   def can_use_services?
-    return true if is_of_age?
+    return true if of_age?
   end
 
   def correct_name
